@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun firebaseLogin() {
-        //show progress
+        //show progres
         progressDialog.show()
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
