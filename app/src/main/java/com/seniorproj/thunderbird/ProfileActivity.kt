@@ -34,10 +34,16 @@ class ProfileActivity : AppCompatActivity() {
         checkUser()
 
         // handle click, logout
-        binding.logoutBtn.setOnClickListener{
+        binding.logoutBtn.setOnClickListener {
             firebaseAuth.signOut()
             checkUser()
         }
+
+        //Open Display Activity
+         binding.displaybtn.setOnClickListener {
+             startActivity(Intent(this, DisplayActivity::class.java))
+             finish()
+         }
     }
 
     private fun checkUser() {
@@ -48,8 +54,7 @@ class ProfileActivity : AppCompatActivity() {
             val email = firebaseUser.email
             // set to text view
             binding.emailTv.text = email
-        }
-        else{
+        } else {
             //user is null, user is not loggedin
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
