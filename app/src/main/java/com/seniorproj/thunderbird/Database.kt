@@ -1,9 +1,9 @@
 package com.seniorproj.thunderbird
 
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 object Database {
@@ -29,16 +29,8 @@ object Database {
         return data?.toObject<Cargo>()
     }
 
-    suspend fun setCargo(data: Cargo): Boolean {
-        val cargo = mapOf<String, Any>(
-            "name" to data.name,
-            "contents" to data.contents,
-            "length" to data.length,
-            "width" to data.width,
-            "height" to data.height,
-            "weight" to data.weight
-        )
-        return setData("cargo", data.name, cargo)
+    suspend fun setCargo(data: Cargo, name: String = data.name): Boolean {
+        return setData("cargo", name, data)
     }
 
     suspend fun getContainer(document: String): Container? {
@@ -46,17 +38,11 @@ object Database {
         return data?.toObject<Container>()
     }
 
-    suspend fun setContainer(data: Container): Boolean {
-        val container = mapOf<String, Any>(
-            "name" to data.name,
-            "length" to data.length,
-            "width" to data.width,
-            "height" to data.height,
-            "weightLimit" to data.weightLimit
-        )
-        return setData("containers", data.name, container)
+    suspend fun setContainer(data: Container, name: String = data.name): Boolean {
+        return setData("containers", name, data)
     }
 
+    // shared functions
     private suspend fun getData(collection: String, document: String): DocumentSnapshot? {
         return try {
             val data = Firebase.firestore
@@ -71,7 +57,13 @@ object Database {
         }
     }
 
-    private suspend fun setData(collection: String, document: String, data: Map<String, Any>): Boolean {
+    private suspend fun setData(collection: String, document: String, data: Any): Boolean {
+        // make sure we have a Cargo or Container object
+        if (!(data is Container || data is Cargo)) {
+            return false
+        }
+
+        // put the Cargo or Container into the database
         return try {
             Firebase.firestore
                 .collection(collection)
