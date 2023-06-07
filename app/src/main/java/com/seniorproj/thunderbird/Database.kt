@@ -8,9 +8,9 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
-/**********************************************************************************************
+/**************************************************************************************************
  * Contains data classes and methods for using the Database
- *********************************************************************************************/
+ *************************************************************************************************/
 object Database {
     private const val TAG: String = "DATABASE"
 
@@ -67,11 +67,10 @@ object Database {
     /**********************************************************************************************
      * Puts a new Cargo document into the database.
      * @param Database.Cargo data class
-     * @param String document name ([Database.Cargo.name] by default)
      * @return [Boolean] true if successful, false if not
      *********************************************************************************************/
-    suspend fun setCargo(data: Cargo, document: String = data.name): Boolean {
-        return setDocument("cargo", document, data)
+    suspend fun setCargo(data: Cargo): Boolean {
+        return setDocument("cargo", data)
     }
 
     /**********************************************************************************************
@@ -113,11 +112,10 @@ object Database {
     /**********************************************************************************************
      * Puts a new Container document into the database.
      * @param Database.Container data class
-     * @param String document name ([Database.Container.name] by default)
      * @return [Boolean] true if successful, false if not
      *********************************************************************************************/
-    suspend fun setContainer(data: Container, document: String = data.name): Boolean {
-        return setDocument("containers", document, data)
+    suspend fun setContainer(data: Container): Boolean {
+        return setDocument("containers", data)
     }
 
     /**********************************************************************************************
@@ -164,7 +162,7 @@ object Database {
             data
         }
         catch (e: Exception) {
-            Log.d(TAG, "Unable to get all documents from $collection due to $e")
+            Log.d(TAG, "Error: Unable to get all documents from $collection due to $e")
             null
         }
     }
@@ -172,14 +170,15 @@ object Database {
     /**********************************************************************************************
      * Puts a new document into a collection in the database.
      * @param String collection name
-     * @param String document name
      * @param Any Cargo or Container data class
      * @return [Boolean] true if successful, false if not
      *********************************************************************************************/
-    private suspend fun setDocument(collection: String, document: String, data: Any): Boolean {
+    private suspend fun setDocument(collection: String, data: Any): Boolean {
         // make sure we have a Cargo or Container object
-        if (!(data is Container || data is Cargo)) {
-            return false
+        val document: String = when (data) {
+            is Cargo -> { data.name }
+            is Container -> { data.name }
+            else -> { return false }
         }
 
         // put the Cargo or Container into the database
@@ -192,7 +191,7 @@ object Database {
             true
         }
         catch (e: Exception) {
-            Log.d(TAG, "Unable to get set new data into $document in $collection due to $e")
+            Log.d(TAG, "Error: Unable to set data into $document in $collection due to $e")
             false
         }
     }
@@ -213,7 +212,7 @@ object Database {
             true
         }
         catch (e: Exception) {
-            Log.d(TAG, "Unable to delete $document from $collection due to $e")
+            Log.d(TAG, "Error: Unable to delete $document from $collection due to $e")
             false
         }
     }
