@@ -2,7 +2,6 @@ package com.seniorproj.thunderbird
 
 import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -39,35 +38,36 @@ object Database {
 
     /**********************************************************************************************
      * Gets a single Cargo document from the database.
-     * @param String document name
-     * @return [Database.Cargo] or null
+     * @param document document name
+     * @return [Database.Cargo] or null if nonexistent
      *********************************************************************************************/
     suspend fun getCargo(document: String): Cargo? {
-        val data = getDocument("cargo", document)
-        return data?.toObject<Cargo>()
+        // a DocumentSnapshot translated into a Cargo object
+        return getDocument("cargo", document)?.toObject<Cargo>()
     }
 
     /**********************************************************************************************
      * Gets all Cargo documents from the database.
-     * @return [List]<[Database.Cargo]>
+     * @return [List]<[Database.Cargo]> or null if nonexistent
      *********************************************************************************************/
-    suspend fun getAllCargo(): List<Cargo> {
-        val data = getAllDocuments("cargo")
-        return data?.documents?.mapNotNull { it.toObject<Cargo>() } ?: listOf()
+    suspend fun getAllCargo(): List<Cargo>? {
+        // a list of DocumentSnapshots translated into a list of Cargo objects
+        return getAllDocuments("cargo")?.mapNotNull { it.toObject<Cargo>() }
     }
 
     /**********************************************************************************************
      * Gets all Cargo documents' names from the database.
-     * @return [List]<[String]>
+     * @return [List]<[String]> or null if nonexistent
      *********************************************************************************************/
-    suspend fun getAllCargoNames(): List<String> {
-        return getAllCargo().map { it.name }
+    suspend fun getAllCargoNames(): List<String>? {
+        // a list of Cargo all mapped to be their names
+        return getAllCargo()?.map { it.name }
     }
 
     /**********************************************************************************************
      * Puts a new Cargo document into the database.
-     * @param Database.Cargo data class
-     * @return [Boolean] true if successful, false if not
+     * @param data [Database.Cargo]
+     * @return true if successful, false if not
      *********************************************************************************************/
     suspend fun setCargo(data: Cargo): Boolean {
         return setDocument("cargo", data)
@@ -75,8 +75,8 @@ object Database {
 
     /**********************************************************************************************
      * Deletes a Cargo document from the database.
-     * @param String document name
-     * @return [Boolean] true if successful, false if not
+     * @param document document name
+     * @return true if successful, false if not
      *********************************************************************************************/
     suspend fun deleteCargo(document: String): Boolean {
         return deleteDocument("cargo", document)
@@ -84,35 +84,36 @@ object Database {
 
     /**********************************************************************************************
      * Gets a single Container document from the database.
-     * @param String document name
-     * @return [Database.Container] or null
+     * @param document document name
+     * @return [Database.Container] or null if nonexistent
      *********************************************************************************************/
     suspend fun getContainer(document: String): Container? {
-        val data = getDocument("containers", document)
-        return data?.toObject<Container>()
+        // a DocumentSnapshot translated into a Container object
+        return getDocument("containers", document)?.toObject<Container>()
     }
 
     /**********************************************************************************************
      * Gets all Container documents from the database.
-     * @return [List]<[Database.Container]>
+     * @return [List]<[Database.Container]> or null if nonexistent
      *********************************************************************************************/
-    suspend fun getAllContainers(): List<Container> {
-        val data = getAllDocuments("containers")
-        return data?.documents?.mapNotNull { it.toObject<Container>() } ?: listOf()
+    suspend fun getAllContainers(): List<Container>? {
+        // a list of DocumentSnapshots translated into a list of Container objects
+        return getAllDocuments("containers")?.mapNotNull { it.toObject<Container>() }
     }
 
     /**********************************************************************************************
      * Gets all Container documents' names from the database.
-     * @return [List]<[String]>
+     * @return [List]<[String]> or null if nonexistent
      *********************************************************************************************/
-    suspend fun getAllContainerNames(): List<String> {
-        return getAllContainers().map { it.name }
+    suspend fun getAllContainerNames(): List<String>? {
+        // a list of Containers all mapped to be their names
+        return getAllContainers()?.map { it.name }
     }
 
     /**********************************************************************************************
      * Puts a new Container document into the database.
-     * @param Database.Container data class
-     * @return [Boolean] true if successful, false if not
+     * @param data [Database.Container]
+     * @return true if successful, false if not
      *********************************************************************************************/
     suspend fun setContainer(data: Container): Boolean {
         return setDocument("containers", data)
@@ -120,8 +121,8 @@ object Database {
 
     /**********************************************************************************************
      * Deletes a Container document from the database.
-     * @param String document name
-     * @return [Boolean] true if successful, false if not
+     * @param document document name
+     * @return true if successful, false if not
      *********************************************************************************************/
     suspend fun deleteContainer(document: String): Boolean {
         return deleteDocument("containers", document)
@@ -129,8 +130,8 @@ object Database {
 
     /**********************************************************************************************
      * Gets a document from a collection the database.
-     * @param String collection name
-     * @param String document name
+     * @param collection collection name
+     * @param document document name
      * @return [DocumentSnapshot]?
      *********************************************************************************************/
     private suspend fun getDocument(collection: String, document: String): DocumentSnapshot? {
@@ -150,16 +151,16 @@ object Database {
 
     /**********************************************************************************************
      * Gets all documents from a collection in the database.
-     * @param String collection name
-     * @return [QuerySnapshot]?
+     * @param collection collection name
+     * @return [List]<[DocumentSnapshot]>?
      *********************************************************************************************/
-    private suspend fun getAllDocuments(collection: String): QuerySnapshot? {
+    private suspend fun getAllDocuments(collection: String): List<DocumentSnapshot>? {
         return try {
             val data = Firebase.firestore
                 .collection(collection)
                 .get()
                 .await()
-            data
+            data.documents
         }
         catch (e: Exception) {
             Log.d(TAG, "Error: Unable to get all documents from $collection due to $e")
@@ -169,9 +170,9 @@ object Database {
 
     /**********************************************************************************************
      * Puts a new document into a collection in the database.
-     * @param String collection name
-     * @param Any Cargo or Container data class
-     * @return [Boolean] true if successful, false if not
+     * @param collection collection name
+     * @param data Cargo or Container data class
+     * @return true if successful, false if not
      *********************************************************************************************/
     private suspend fun setDocument(collection: String, data: Any): Boolean {
         // make sure we have a Cargo or Container object
@@ -198,9 +199,9 @@ object Database {
 
     /**********************************************************************************************
      * Deletes a document from a collection in the database.
-     * @param String collection name
-     * @param String document name
-     * @return [Boolean] true if successful, false if not
+     * @param collection collection name
+     * @param document document name
+     * @return true if successful, false if not
      *********************************************************************************************/
     private suspend fun deleteDocument(collection: String, document: String): Boolean {
         return try {

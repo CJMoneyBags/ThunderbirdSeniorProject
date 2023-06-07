@@ -1,12 +1,10 @@
 package com.seniorproj.thunderbird
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.ActionBar
-
-
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.seniorproj.thunderbird.databinding.ActivityProfileBinding
 import kotlinx.coroutines.runBlocking
@@ -96,20 +94,20 @@ class ProfileActivity : AppCompatActivity() {
 
         // get all Cargo
         val allCargo = Database.getAllCargo()
-        if (allCargo.isNotEmpty()) {
+        if (allCargo != null) {
             Log.d(tag, "All Cargo received with size ${allCargo.size}")
         }
 
         // get all Containers
         val allContainers = Database.getAllContainers()
-        if (allContainers.isNotEmpty()) {
-            Log.d(tag, "All Containers received with size ${allCargo.size}")
+        if (allContainers != null) {
+            Log.d(tag, "All Containers received with size ${allContainers.size}")
         }
 
         // get all Cargo names
         val allCargoNames = Database.getAllCargoNames()
-        if (allCargoNames.isNotEmpty()) {
-            val setCargoNames = allCargo.map { it.name }.toSet()
+        if (allCargoNames != null) {
+            val setCargoNames = allCargo?.map { it.name }?.toSet()
             if (setCargoNames == allCargoNames.toSet()) {
                 Log.d(tag, "All Cargo names received: $allCargoNames")
             }
@@ -120,8 +118,8 @@ class ProfileActivity : AppCompatActivity() {
 
         // get all Container names
         val allContainerNames = Database.getAllContainerNames()
-        if (allContainerNames.isNotEmpty()) {
-            val setContainerNames = allContainers.map { it.name }.toSet()
+        if (allContainerNames != null) {
+            val setContainerNames = allContainers?.map { it.name }?.toSet()
             if (setContainerNames == allContainerNames.toSet()) {
                 Log.d(tag, "All Container names received: $allContainerNames")
             }
@@ -143,6 +141,5 @@ class ProfileActivity : AppCompatActivity() {
                 Log.d(tag, "Deleted ${testContainer.name}")
             }
         }
-
     }
 }
