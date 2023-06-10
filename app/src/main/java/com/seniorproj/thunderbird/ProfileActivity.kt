@@ -1,5 +1,6 @@
 package com.seniorproj.thunderbird
 
+import android.content.DialogInterface.OnClickListener
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -37,6 +38,11 @@ class ProfileActivity : AppCompatActivity() {
         binding.logoutBtn.setOnClickListener{
             firebaseAuth.signOut()
             checkUser()
+
+        }
+
+        binding.displayBtn.setOnClickListener {
+            startActivity(Intent(this, DisplayActivity::class.java))
         }
     }
 
@@ -48,8 +54,7 @@ class ProfileActivity : AppCompatActivity() {
             val email = firebaseUser.email
             // set to text view
             binding.emailTv.text = email
-        }
-        else{
+        } else {
             //user is null, user is not loggedin
             startActivity(Intent(this, LoginActivity::class.java))
             finish()

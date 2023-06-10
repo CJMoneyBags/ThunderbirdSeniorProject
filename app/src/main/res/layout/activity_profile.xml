@@ -25,4 +25,10 @@
         android:layout_height="wrap_content"
         android:text="Logout"/>
 
+    <Button
+        android:id="@+id/displayBtn"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:text="Go To Display" />
+
 </LinearLayout>
