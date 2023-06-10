@@ -1,13 +1,12 @@
 package com.seniorproj.thunderbird
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
-
-
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.seniorproj.thunderbird.databinding.ActivityProfileBinding
+import kotlinx.coroutines.runBlocking
 
 class ProfileActivity : AppCompatActivity() {
     //ViewBinding
@@ -19,7 +18,7 @@ class ProfileActivity : AppCompatActivity() {
     //FirebaseAuth
     private lateinit var firebaseAuth: FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) = runBlocking { // = runBlocking needed for suspend funs
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         binding = ActivityProfileBinding.inflate(layoutInflater)
