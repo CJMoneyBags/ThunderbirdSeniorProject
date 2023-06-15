@@ -32,6 +32,13 @@ class ProfileActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         checkUser()
 
+        // go to cargo
+        binding.cargoButton.setOnClickListener {
+            //open profile
+            startActivity(Intent(this@ProfileActivity, CargoActivity::class.java))
+            finish()
+        }
+
         // handle click, logout
         binding.logoutBtn.setOnClickListener{
             firebaseAuth.signOut()

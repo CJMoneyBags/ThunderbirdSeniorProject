@@ -23,7 +23,11 @@ object Database {
         val width: Double = 0.0,
         val height: Double = 0.0,
         val weight: Double = 0.0
-    )
+    ){
+        override fun toString(): String {
+            return name
+        }
+    }
 
     /**********************************************************************************************
      * Represents a Container
@@ -34,7 +38,11 @@ object Database {
         val width: Double = 0.0,
         val height: Double = 0.0,
         val weightLimit: Double = 0.0
-    )
+    ){
+        override fun toString(): String {
+            return name
+        }
+    }
 
     /**********************************************************************************************
      * Gets a single Cargo document from the database.
