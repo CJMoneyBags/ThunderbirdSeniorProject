@@ -20,19 +20,28 @@ class DisplayActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val llTop = binding.llTop
-        val llBottom = binding.llBottom
-        val dragView = binding.dragView
+        //Binding all of the sections of the container for use.
+        binding.section1Top.setOnDragListener(dragListener)
+        binding.section1Bottom.setOnDragListener(dragListener)
+        binding.section2Top.setOnDragListener(dragListener)
+        binding.section2Bottom.setOnDragListener(dragListener)
+        binding.section3Top.setOnDragListener(dragListener)
+        binding.section3Bottom.setOnDragListener(dragListener)
+        binding.section4Top.setOnDragListener(dragListener)
+        binding.section4Bottom.setOnDragListener(dragListener)
+        binding.section5Top.setOnDragListener(dragListener)
+        binding.section5Bottom.setOnDragListener(dragListener)
+        binding.section6Top.setOnDragListener(dragListener)
+        binding.section6Bottom.setOnDragListener(dragListener)
 
-        llTop.setOnDragListener(dragListener)
-        llBottom.setOnDragListener(dragListener)
-        dragView.setOnLongClickListener {
+        //Binding the draggable object(s)
+        //TODO: Figure out how to get dynamically populated draggable objects.
+        binding.dragView.setOnLongClickListener {
             val clipText = "This is our ClipData text"
             val item = ClipData.Item(clipText)
             val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
             val data = ClipData(clipText, mimeTypes, item)
 
-            //TODO:Figure out how DragShadowBuilder works and input it here.
             it.startDragAndDrop(data, View.DragShadowBuilder(it), it, 0)
 
             it.visibility = View.INVISIBLE
@@ -40,6 +49,7 @@ class DisplayActivity : AppCompatActivity() {
         }
     }
 
+    //The logic for the dragging actions.
     val dragListener = View.OnDragListener {view, event->
         when(event.action) {
             DragEvent.ACTION_DRAG_STARTED -> {
@@ -63,8 +73,8 @@ class DisplayActivity : AppCompatActivity() {
             DragEvent.ACTION_DROP -> {
                 val item = event.clipData.getItemAt(0)
                 val dragData = item.text
-                //TODO:Debug and make updates for Toast to print screen.
-//                val Toast.makeText(this, dragData, Toast.LENGTH_SHORT).show()
+                //TODO: Debug and make updates for Toast to print screen.
+                //val Toast.makeText(this, dragData, Toast.LENGTH_SHORT).show()
 
                 val v = event.localState as View
                 val owner = v.parent as ViewGroup
