@@ -55,6 +55,10 @@ class LoginActivity : AppCompatActivity() {
 
             validateData()
         }
+        binding.tvForgotPassword.setOnClickListener {
+            startActivity(Intent(this,ForgotPasswordActivity::class.java))
+        }
+
     }
 
     private fun validateData() {
@@ -78,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun firebaseLogin() {
-        //show progres
+        //show progress
         progressDialog.show()
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
@@ -109,5 +113,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
             finish()
         }
+
+
     }
 }
