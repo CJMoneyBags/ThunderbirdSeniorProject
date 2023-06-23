@@ -18,7 +18,6 @@ object Database {
      *********************************************************************************************/
     data class Cargo(
         val name: String = "",
-        val contents: String = "",
         val length: Double = 0.0,
         val width: Double = 0.0,
         val height: Double = 0.0,
