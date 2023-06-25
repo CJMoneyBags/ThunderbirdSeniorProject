@@ -23,7 +23,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
            if(email.isEmpty()){
                Toast.makeText(
                    this@ForgotPasswordActivity,
-                   "Please enter email address.",
+                   "Please enter an email address.",
                    Toast.LENGTH_SHORT
                ).show()
            }else{
