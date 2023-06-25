@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CargoActivity"
+            android:name=".SelectionActivity"
             android:exported="false" />
 
     </application>

@@ -34,7 +34,7 @@ class ProfileActivity : AppCompatActivity() {
         // go to cargo
         // TODO make this button/transition prettier!
         binding.cargoButton.setOnClickListener {
-            startActivity(Intent(this@ProfileActivity, CargoActivity::class.java))
+            startActivity(Intent(this@ProfileActivity, SelectionActivity::class.java))
         }
 
         // handle click, logout
