@@ -1,11 +1,13 @@
 package com.seniorproj.thunderbird
 
+import android.os.Parcelable
 import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
+import kotlinx.parcelize.Parcelize
 
 /**************************************************************************************************
  * Contains data classes and methods for using the Database
@@ -16,13 +18,14 @@ object Database {
     /**********************************************************************************************
      * Represents a piece of Cargo
      *********************************************************************************************/
+    @Parcelize
     data class Cargo(
         val name: String = "",
         val length: Double = 0.0,
         val width: Double = 0.0,
         val height: Double = 0.0,
         val weight: Double = 0.0
-    ){
+    ): Parcelable {
         override fun toString(): String {
             return name
         }
@@ -31,15 +34,26 @@ object Database {
     /**********************************************************************************************
      * Represents a Container
      *********************************************************************************************/
+    @Parcelize
     data class Container(
         val name: String = "",
         val length: Double = 0.0,
         val width: Double = 0.0,
         val height: Double = 0.0,
         val weightLimit: Double = 0.0
-    ){
+    ): Parcelable {
         override fun toString(): String {
             return name
+        }
+    }
+
+    /**********************************************************************************************
+     * Represents a Parcelable version of Pair<Database.Cargo, Int>
+     *********************************************************************************************/
+    @Parcelize
+    data class CargoPair(val cargo: Cargo, val number: Int): Parcelable {
+        override fun toString(): String {
+            return "$number of \"$cargo\""
         }
     }
 
@@ -148,10 +162,11 @@ object Database {
                 .document(document)
                 .get()
                 .await()
+            Log.d(TAG, "Retrieved $document from $collection successfully.")
             data
         }
         catch (e: Exception) {
-            Log.d(TAG, "Unable to get $document from $collection due to $e")
+            Log.d(TAG, "Unable to get $document from $collection due to $e.")
             null
         }
     }
@@ -167,10 +182,11 @@ object Database {
                 .collection(collection)
                 .get()
                 .await()
+            Log.d(TAG, "Retrieved all documents from $collection successfully.")
             data.documents
         }
         catch (e: Exception) {
-            Log.d(TAG, "Error: Unable to get all documents from $collection due to $e")
+            Log.d(TAG, "Error: Unable to get all documents from $collection due to $e.")
             null
         }
     }
@@ -196,10 +212,11 @@ object Database {
                 .document(document)
                 .set(data)
                 .await()
+            Log.d(TAG, "Data set into $document in $collection successfully.")
             true
         }
         catch (e: Exception) {
-            Log.d(TAG, "Error: Unable to set data into $document in $collection due to $e")
+            Log.d(TAG, "Error: Unable to set data into $document in $collection due to $e.")
             false
         }
     }
@@ -217,10 +234,11 @@ object Database {
                 .document(document)
                 .delete()
                 .await()
+            Log.d(TAG, "Deleted $document from $collection successfully.")
             true
         }
         catch (e: Exception) {
-            Log.d(TAG, "Error: Unable to delete $document from $collection due to $e")
+            Log.d(TAG, "Error: Unable to delete $document from $collection due to $e.")
             false
         }
     }
