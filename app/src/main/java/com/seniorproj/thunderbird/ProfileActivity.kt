@@ -1,11 +1,9 @@
 package com.seniorproj.thunderbird
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
-
-
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.seniorproj.thunderbird.databinding.ActivityProfileBinding
 
@@ -32,6 +30,12 @@ class ProfileActivity : AppCompatActivity() {
         //init firebase auth
         firebaseAuth = FirebaseAuth.getInstance()
         checkUser()
+
+        // go to cargo
+        // TODO make this button/transition prettier!
+        binding.cargoButton.setOnClickListener {
+            startActivity(Intent(this@ProfileActivity, SelectionActivity::class.java))
+        }
 
         // handle click, logout
         binding.logoutBtn.setOnClickListener{
