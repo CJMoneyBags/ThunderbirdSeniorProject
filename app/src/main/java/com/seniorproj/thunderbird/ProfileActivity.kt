@@ -35,7 +35,7 @@ class ProfileActivity : AppCompatActivity() {
         checkUser()
 
         // handle click, logout
-        binding.logoutBtn.setOnClickListener{
+        binding.logoutBtn.setOnClickListener {
             firebaseAuth.signOut()
             checkUser()
 
