@@ -120,8 +120,7 @@ class SelectionActivity : AppCompatActivity() {
             bundle.putParcelableArrayList("cargoList", cargoList)
 
             // set up the next screen
-            // TODO this will be DisplayActivity::class.java in the future, but it's like this for now so that it doesn't break
-            val intent = Intent(this@SelectionActivity, SelectionActivity::class.java)
+            val intent = Intent(this@SelectionActivity, DisplayActivity::class.java)
             intent.putExtras(bundle)
 
             // TODO something like the below should be in DisplayActivity's onCreate function to retrieve the data from this activity
@@ -139,8 +138,8 @@ class SelectionActivity : AppCompatActivity() {
 //                Log.d("Bundle", "Container: ${receivedContainer.name}, List: $receivedList")
 //            }
 
-            // TODO go to the next screen
-//            startActivity(intent)
+            // go to the next screen
+            startActivity(intent)
         }
     }
 
