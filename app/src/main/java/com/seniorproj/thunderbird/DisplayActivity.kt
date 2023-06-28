@@ -83,6 +83,11 @@ class DisplayActivity : AppCompatActivity() {
                 destination.addView(v)
                 v.visibility = View.VISIBLE
                 true
+
+//                // Create a copy of the draggable image
+//                val draggedImage = event.localState as ImageView
+//                val copyImage = ImageView(this)
+//                copyImage.setImageDrawable(draggedImage.drawable)
             }
 
             DragEvent.ACTION_DRAG_ENDED -> {
