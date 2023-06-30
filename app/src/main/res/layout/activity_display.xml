@@ -22,10 +22,21 @@
 
                 <View
                     android:id="@+id/dragView"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:background="@color/black" />
+                <!-- Count Text -->
+                <TextView
+                    android:id="@+id/countText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/dragView"
+                    android:layout_alignEnd="@id/dragView"
+                    android:text="5"
+                    android:textAlignment="center"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
