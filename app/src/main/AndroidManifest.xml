@@ -36,6 +36,12 @@
         <activity
             android:name=".SelectionActivity"
             android:exported="false" />
+        <activity
+            android:name=".CreateCargoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateContainerActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
