@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/login"
+        android:text="@string/app_name"
         android:textSize="34sp"
         android:textStyle="bold" />
 
@@ -70,15 +71,12 @@
 
     <TextView
         android:id="@+id/tv_forgot_password"
-        android:layout_width="271dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginBtn"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="81dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="79dp"
-        android:text="Forgot/Change Password" />
+        android:text="@string/forgot_change_password"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/noAccountTv"

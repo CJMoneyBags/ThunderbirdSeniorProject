@@ -20,6 +20,19 @@ class DisplayActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        // TODO incorporate these objects
+//        val container: Database.Container
+//        val cargoList: ArrayList<Database.CargoPair>
+//        val bundle: Bundle? = intent.extras
+//        if (bundle != null) {
+//            container = bundle.getParcelable("container")!!
+//            cargoList = bundle.getParcelableArrayList("cargoList")!!
+//
+//            // an example of how to get the first cargo's data
+//            val firstCargo: Database.Cargo = cargoList[0].cargo
+//            val numberOfCargo: Int = cargoList[0].number
+//        }
+
         //Binding all of the sections of the container for use.
         binding.section1Top.setOnDragListener(dragListener)
         binding.section1Bottom.setOnDragListener(dragListener)

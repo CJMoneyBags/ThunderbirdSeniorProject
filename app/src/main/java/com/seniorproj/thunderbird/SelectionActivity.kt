@@ -24,7 +24,7 @@ class SelectionActivity : AppCompatActivity() {
 
         // configure ActionBar
         actionBar = supportActionBar!!
-        actionBar.title = "Cargo"
+        actionBar.title = "Select Container and Cargo"
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.setDisplayShowHomeEnabled(true)
 
@@ -122,21 +122,6 @@ class SelectionActivity : AppCompatActivity() {
             // set up the next screen
             val intent = Intent(this@SelectionActivity, DisplayActivity::class.java)
             intent.putExtras(bundle)
-
-            // TODO something like the below should be in DisplayActivity's onCreate function to retrieve the data from this activity
-//            val receivedContainer: Database.Container
-//            val receivedList: ArrayList<Database.CargoPair>
-//            val receivedBundle: Bundle? = intent.extras
-//            if (receivedBundle != null) {
-//                receivedContainer = receivedBundle.getParcelable("container")!!
-//                receivedList = receivedBundle.getParcelableArrayList("cargoList")!!
-//
-//                // an example of how to get the first cargo's data
-//                val firstCargo: Database.Cargo = receivedList[0].cargo
-//                val numberOfCargo: Int = receivedList[0].number
-//
-//                Log.d("Bundle", "Container: ${receivedContainer.name}, List: $receivedList")
-//            }
 
             // go to the next screen
             startActivity(intent)
