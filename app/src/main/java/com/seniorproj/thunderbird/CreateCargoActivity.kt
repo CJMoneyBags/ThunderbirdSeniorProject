@@ -42,15 +42,14 @@ class CreateCargoActivity : AppCompatActivity() {
                 height.text.toString().toDouble(),
                 weight.text.toString().toDouble()
             )
+            Toast.makeText(
+                this@CreateCargoActivity,
+                "Created ${name.text}",
+                Toast.LENGTH_SHORT
+            ).show()
             CoroutineScope(Dispatchers.IO).launch {
                 if (Database.setCargo(cargo)) {
-                    runOnUiThread {
-                        Toast.makeText(
-                            this@CreateCargoActivity,
-                            "Created ${name.text}",
-                            Toast.LENGTH_SHORT
-                            ).show()
-                    }
+                    Log.d("Create Cargo", "Successfully created $cargo.")
                 }
                 else {
                     Log.d("Create Cargo", "Something went wrong.")

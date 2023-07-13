@@ -42,15 +42,14 @@ class CreateContainerActivity : AppCompatActivity()  {
                 height.text.toString().toDouble(),
                 weightLimit.text.toString().toDouble()
             )
+            Toast.makeText(
+                this@CreateContainerActivity,
+                "Created ${name.text}",
+                Toast.LENGTH_SHORT
+            ).show()
             CoroutineScope(Dispatchers.IO).launch {
                 if (Database.setContainer(container)) {
-                    runOnUiThread {
-                        Toast.makeText(
-                            this@CreateContainerActivity,
-                            "Created ${name.text}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    Log.d("Create Container", "Successfully created $container.")
                 }
                 else {
                     Log.d("Create Container", "Something went wrong.")
